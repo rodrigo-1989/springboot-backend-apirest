@@ -1,6 +1,9 @@
 package com.bolsadeideas.springboot.backend.apirest.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 @Entity
@@ -10,9 +13,15 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "no puede ser vacio")
+    @Size(min = 3,max = 15,message = "el tamaño debe de ser entre 3 y 15 caracteres")
     @Column(nullable = false)
     private String nombre;
+    @NotEmpty(message = "no puede ser vacio")
     private String apellido;
+    @NotEmpty(message = "no puede ser vacio")
+    @Email(message = "No es una direccion de correo valida")
     @Column(nullable = false,unique = true)
     private String email;
     @Column(name = "create_at")
